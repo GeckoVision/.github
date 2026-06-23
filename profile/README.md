@@ -2,7 +2,9 @@
 
 # 🦎 Gecko
 
-### The safety & verification layer for trading agents — not another agent.
+### The decision firewall for Solana.
+
+*Every tool checks the contract. Gecko checks the market is real.*
 
 [![Docs](https://img.shields.io/badge/docs-geckovision.tech-448aff?style=flat-square)](https://docs.geckovision.tech)
 [![App](https://img.shields.io/badge/app-app.geckovision.tech-2962ff?style=flat-square)](https://app.geckovision.tech)
@@ -12,32 +14,61 @@
 
 ---
 
-## Every trading agent tells you it's winning. **Gecko tells you when it's wrong.**
+## Most Solana launches are fake markets. **Gecko tells you before you buy.**
 
-Gecko is a verification layer that sits *above* any trading agent — yours, ours, or anyone's. It is white-label infrastructure: a platform other builders and fintechs embed to make their own agents defensible.
+Over half of Solana token launches are sniped in the first block; ~99% of buyers
+lose. Every safety tool checks a token's **contract** — mint, freeze, honeypot.
+None of them check whether the **market** (price, volume, holders, demand) was
+*manufactured* by snipers, wash trades, sybil wallets, or a poisoned oracle. A
+token can have clean code and a completely fake market — and that is what drains
+people.
 
-- **Gates every order** against a pre-trade safety check — market-temperature read, price-impact caps, deny-by-default rules. The trade only fires if it survives the gate.
-- **Monitors every yield position** against a hurdle rate and a liquidation buffer — and acts *before* a position bleeds.
-- **Grades strategies** with default-REJECT backtest rigor (CPCV, PBO, Deflated Sharpe). An honest *null* is a valid, cheap outcome — most "edges" don't survive it.
+**Gecko is the decision firewall:** one pre-trade call tells an AI trading agent or
+a launchpad — before any capital moves — whether a launch is **genuine or
+manufactured**, as a single `ok / caution / block` + reasons. It fuses behavioral
+signals across **wallets × slots × pools** — the market-integrity axis no contract
+scanner and no single-venue terminal can see.
 
-The wedge is **independence**. Most agents grade their own thesis — the same engine that wants to trade decides whether the trade is good. Gecko is the second opinion that isn't paid when you trade: adversarial multi-voice debate, **surviving dissent**, and citations to external investor canon.
+> Jito's BAM made *execution* trustworthy. **Gecko makes the *decision* trustworthy.**
+> Execution has BAM. Decisions have Gecko.
+
+## The moat
+
+Every verdict is **committed before a launch resolves, then graded by outcome** — a
+time-stamped, outcome-labeled record of what was fake that no competitor can
+backfill. A rival can clone the detector and outspend us on distribution, but they
+cannot backfill a pre-commitment they never made. *Distribution buys traffic, not
+truth.*
 
 ## How it's built
 
-- **Non-custodial.** Signing happens inside a TEE (OKX Agentic Wallet) or a scoped embedded wallet. Keys never leave the enclave. Gecko never holds your private key, and withdrawals are never gated.
-- **Pay-as-you-go.** Verdicts are priced per call via x402 on Solana. Self-hosting is free.
-- **Venue- & chain-neutral.** Execution dispatches through swappable adapters (OKX, Jupiter, Kamino, Drift). The verification layer works above any of them.
-- **Local-first.** Run the agent on your own machine; connect the app as a control surface.
+- **Verify, never execute.** Gecko reads the market and returns a verdict. It never trades, custodies funds, or reorders transactions.
+- **Agent-native + verifiable.** A neutral, callable, pre-trade verdict (not a human dashboard), and every verdict can carry an on-chain **Decision Receipt** — proof it preceded the outcome.
+- **Pay-as-you-go.** The free `/safety` firewall is the wedge; the deep oracle (multi-voice debate + surviving dissent + citations) is priced per call via x402 on Solana.
+- **Neutral.** Distributed where agents already run — a SendAI / Solana Agent Kit adapter, MCP, and direct launchpad integrations.
+
+## ⚠️ Status (honest)
+
+The firewall **engine** is real and **fork-proven**; the on-chain **Decision
+Receipt** is **devnet-verified**; the **verdict ledger** writes its first rows. The
+firewall is **DARK in production**, and **live-launch detection precision is not yet
+proven** — the real-launch backtest (the gate to charging) showed the current
+signals over-block, and a re-tune is underway. We ship what's proven and never claim
+live accuracy we haven't earned.
 
 ## What's in this org
 
 | Repo | What it is |
 |---|---|
-| [`gecko-claude`](https://github.com/GeckoVision/gecko-claude) | Public docs, the `skill.md` install surface, and example skills (`curl \| bash` → use) |
-| [`gecko-mcpay-api`](https://github.com/GeckoVision/gecko-mcpay-api) | The Python backend — SDK, MCP server, FastAPI, CLI. The verification engine. |
-| [`gecko-programs`](https://github.com/GeckoVision/gecko-programs) | Solana programs (custody-probe and on-chain components) |
+| [`gecko-mcpay-api`](https://github.com/GeckoVision/gecko-mcpay-api) | The Python backend — the firewall engine, SDK, MCP server, FastAPI, CLI. **Positioning source of truth.** |
+| [`gecko-claude`](https://github.com/GeckoVision/gecko-claude) | Public docs, the `skill.md` install surface, and the Claude Code skills (`curl \| bash` → use) |
+| [`gecko-mcpay-app`](https://github.com/GeckoVision/gecko-mcpay-app) | The Next.js app at `app.geckovision.tech` |
+| [`gecko-programs`](https://github.com/GeckoVision/gecko-programs) | Solana programs — Token-2022 firewall hook + Decision Receipt PDA (devnet-only) |
 
-> The trading bot and the profit vault you'll see in the docs are **proof artifacts** — they demonstrate the verification layer on live capital. The product is the layer, not the bot. We lead with the gate, the dissent, and the rigor — never with a PnL number.
+> The trade oracle and trading bot you'll see in the docs are the engine's deeper
+> paid layer and a **proof artifact** — they demonstrate the verification stack. The
+> product is the firewall. We lead with the verdict, the dissent, and the rigor —
+> never with a PnL number.
 
 ---
 
