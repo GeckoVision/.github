@@ -2,47 +2,45 @@
 
 # 🦎 Gecko
 
-### The safety & verification layer for trading agents — not another agent.
+### Make any API agent-usable — first-call-correct, no integration code.
 
-[![Docs](https://img.shields.io/badge/docs-geckovision.tech-448aff?style=flat-square)](https://docs.geckovision.tech)
-[![App](https://img.shields.io/badge/app-app.geckovision.tech-2962ff?style=flat-square)](https://app.geckovision.tech)
-[![Install](https://img.shields.io/badge/install-skill.md-82b1ff?style=flat-square)](https://app.geckovision.tech/skill.md)
+[![PyPI](https://img.shields.io/badge/pip-gecko--surf-3775a9?style=flat-square)](https://pypi.org/project/gecko-surf/)
+[![Engine](https://img.shields.io/badge/engine-gecko--surf-2962ff?style=flat-square)](https://github.com/GeckoVision/gecko-surf)
+[![Site](https://img.shields.io/badge/site-geckovision.tech-448aff?style=flat-square)](https://geckovision.tech)
 
 </div>
 
 ---
 
-## Every trading agent tells you it's winning. **Gecko tells you when it's wrong.**
+## The spec is free. The correct first call is not.
 
-Gecko is a verification layer that sits *above* any trading agent — yours, ours, or anyone's. It is white-label infrastructure: a platform other builders and fintechs embed to make their own agents defensible.
+Docs and endpoints are built for humans. Coding agents one-shot the clean, well-documented APIs — and break on the **painful** ones: long-tail, paywalled, badly-documented, drifting. Wrong auth, wrong units, wrong shape — the call that fails before it ever reaches the endpoint.
 
-- **Gates every order** against a pre-trade safety check — market-temperature read, price-impact caps, deny-by-default rules. The trade only fires if it survives the gate.
-- **Monitors every yield position** against a hurdle rate and a liquidation buffer — and acts *before* a position bleeds.
-- **Grades strategies** with default-REJECT backtest rigor (CPCV, PBO, Deflated Sharpe). An honest *null* is a valid, cheap outcome — most "edges" don't survive it.
+**Gecko is the comprehension layer.** Point an agent at any API's spec and it:
 
-The wedge is **independence**. Most agents grade their own thesis — the same engine that wants to trade decides whether the trade is good. Gecko is the second opinion that isn't paid when you trade: adversarial multi-voice debate, **surviving dissent**, and citations to external investor canon.
+- **Finds the right call** among hundreds of operations.
+- **Injects the access** the spec doesn't explain — the auth handshake, the scope.
+- **Makes the call correctly the first time** — params, units, idempotency, the exact shape.
+- **Stays correct when the API drifts** — tools are a pure function of the surface; re-comprehend, don't hand-patch.
 
-## How it's built
+No integration code. **Control-plane only** — we store the API surface + the generated tools + correctness metadata, *never* your payloads, data, or secrets.
 
-- **Non-custodial.** Signing happens inside a TEE (OKX Agentic Wallet) or a scoped embedded wallet. Keys never leave the enclave. Gecko never holds your private key, and withdrawals are never gated.
-- **Pay-as-you-go.** Verdicts are priced per call via x402 on Solana. Self-hosting is free.
-- **Venue- & chain-neutral.** Execution dispatches through swappable adapters (OKX, Jupiter, Kamino, Drift). The verification layer works above any of them.
-- **Local-first.** Run the agent on your own machine; connect the app as a control surface.
+## The category line
 
-## What's in this org
+Marketplaces help agents **discover** APIs. Payment rails help agents **pay** for them. **Gecko makes agents *use* them** — correctly, first call. We **compose on** x402, MCP, and [pay.sh](https://pay.sh) — we don't replace them.
 
-| Repo | What it is |
-|---|---|
-| [`gecko-claude`](https://github.com/GeckoVision/gecko-claude) | Public docs, the `skill.md` install surface, and example skills (`curl \| bash` → use) |
-| [`gecko-mcpay-api`](https://github.com/GeckoVision/gecko-mcpay-api) | The Python backend — SDK, MCP server, FastAPI, CLI. The verification engine. |
-| [`gecko-programs`](https://github.com/GeckoVision/gecko-programs) | Solana programs (custody-probe and on-chain components) |
+## What we ship
 
-> The trading bot and the profit vault you'll see in the docs are **proof artifacts** — they demonstrate the verification layer on live capital. The product is the layer, not the bot. We lead with the gate, the dissent, and the rigor — never with a PnL number.
+- **[gecko-surf](https://github.com/GeckoVision/gecko-surf)** — the engine (MIT, on PyPI). Turns any OpenAPI 3.x into first-call-correct, question-shaped agent tools, served over MCP.
+- **[solana-api-skill](https://github.com/GeckoVision/solana-api-skill)** — make any Solana/crypto API agent-usable (Helius, Jupiter, the CLMM protocols): the comprehension layer under every protocol skill.
+- **[solana-token-safety-skill](https://github.com/GeckoVision/solana-token-safety-skill)** — pre-trade market-data-integrity for Solana agents, over a Gecko oracle.
 
----
+## Status (honest)
+
+V1 — comprehension — is **live on Solana mainnet** end-to-end (first-call-correct against a real, paywalled API). The compounding correctness corpus (V2) is designed, not yet built. Consumer willingness-to-pay is the real decider — validating now via discovery interviews. We don't read "a working demo" as "a proven business."
 
 <div align="center">
 
-**[Read the docs →](https://docs.geckovision.tech)** · **[Open the app →](https://app.geckovision.tech)** · **[Install the skill →](https://app.geckovision.tech/skill.md)**
+**Make any API agent-usable.**  ·  [geckovision.tech](https://geckovision.tech)  ·  `pip install gecko-surf`
 
 </div>
