@@ -33,7 +33,6 @@ Marketplaces help agents **discover** APIs. Payment rails help agents **pay** fo
 
 - **[gecko-surf](https://github.com/GeckoVision/gecko-surf)** — the engine (MIT, on PyPI). Turns any OpenAPI 3.x into first-call-correct, question-shaped agent tools, served over MCP.
 - **[solana-api-skill](https://github.com/GeckoVision/solana-api-skill)** — make any Solana/crypto API agent-usable (Helius, Jupiter, the CLMM protocols): the comprehension layer under every protocol skill.
-- **[solana-token-safety-skill](https://github.com/GeckoVision/solana-token-safety-skill)** — pre-trade market-data-integrity for Solana agents, over a Gecko oracle.
 
 ## Status (honest)
 
